@@ -1,0 +1,6 @@
+env:
+language: groovy
+script:
+- mvn clean test jacoco:report  coveralls:report --settings settings.xml
+after_success:
+- mvn deploy -DskipTests --settings settings.xml
