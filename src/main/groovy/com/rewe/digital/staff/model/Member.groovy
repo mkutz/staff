@@ -4,28 +4,30 @@ import groovy.transform.ToString
 import org.hibernate.annotations.GenericGenerator
 
 import javax.mail.internet.InternetAddress
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
 @ToString(includeFields = true, includePackage = false)
-@EqualsAndHashCode
-class StaffMember {
+@EqualsAndHashCode(excludes = ["id"])
+class Member {
 
     @Id @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
+    @Column(unique = true)
     private InternetAddress emailAddress
 
     private String firstName
 
     private String lastName
 
-    protected StaffMember() {}
+    protected Member() {}
 
-    public StaffMember(InternetAddress emailAddress, String firstName, String lastName) {
+    public Member(InternetAddress emailAddress, String firstName, String lastName) {
         this.emailAddress = emailAddress
         this.firstName = firstName
         this.lastName = lastName

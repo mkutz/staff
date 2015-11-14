@@ -1,6 +1,6 @@
 package com.rewe.digital.staff.resources
-import com.rewe.digital.staff.model.StaffMember
-import com.rewe.digital.staff.repositories.StaffMemberRepository
+import com.rewe.digital.staff.model.Member
+import com.rewe.digital.staff.repositories.MemberRepository
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,27 +15,27 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET
 import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 @RestController
-@RequestMapping("api/profiles")
-class StaffMemberResource {
+@RequestMapping("api/members")
+class MemberResource {
 
     @Inject
-    StaffMemberRepository staffMemberRepository
+    MemberRepository memberRepository
 
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
-    public List<StaffMember> getAllProfiles() {
-        staffMemberRepository.findAll().toList()
+    public Iterable<Member> getAllMembers() {
+        memberRepository.findAll()
     }
 
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public StaffMember getProfile(@PathVariable String id) {
-        staffMemberRepository.findOne(id)
+    public Member getMember(@PathVariable String id) {
+        memberRepository.findOne(id)
     }
 
     @RequestMapping(method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> postProfile(StaffMember profile, RequestEntity<Void> request) {
-        profile = staffMemberRepository.save(profile)
+    public ResponseEntity<Void> postMember(Member member, RequestEntity<Void> request) {
+        member = memberRepository.save(member)
 
-        URI location = UriComponentsBuilder.fromUri(request.url).path("/${profile.id}").build().toUri()
+        URI location = UriComponentsBuilder.fromUri(request.url).path("/${member.id}").build().toUri()
         ResponseEntity.created(location).build()
     }
 }
