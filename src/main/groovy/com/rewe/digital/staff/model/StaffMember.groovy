@@ -1,20 +1,21 @@
 package com.rewe.digital.staff.model
-
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import org.hibernate.annotations.GenericGenerator
 
 import javax.mail.internet.InternetAddress
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-@ToString
+@ToString(includeFields = true, includePackage = false)
+@EqualsAndHashCode
 class StaffMember {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private UUID id;
+    @Id @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
 
     private InternetAddress emailAddress
 
@@ -30,8 +31,12 @@ class StaffMember {
         this.lastName = lastName
     }
 
-    UUID getId() {
+    String getId() {
         return id
+    }
+
+    void setId(String id) {
+        this.id = id
     }
 
     String getFirstName() {
