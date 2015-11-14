@@ -1,13 +1,13 @@
 package com.rewe.digital.staff.test
 import com.rewe.digital.staff.Application
 import com.rewe.digital.staff.model.Member
-import org.junit.Ignore
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.boot.test.WebIntegrationTest
 import org.springframework.http.ResponseEntity
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.web.client.RestTemplate
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.mail.internet.InternetAddress
